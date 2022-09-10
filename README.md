@@ -15,7 +15,7 @@ https://docs.google.com/document/d/1hib8L3baEWNJPxlvhFm4QMnj96N9J8QQ5wGS7dMwPR4/
 ## Specs
 Game Style: 2D Top Down
 
-Game Art: Not Defined
+Game Art: Vector
 
 Engine: Unity
 
