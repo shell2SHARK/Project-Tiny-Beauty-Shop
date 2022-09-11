@@ -4,35 +4,44 @@ using UnityEngine;
 
 public class MainCharacter : MonoBehaviour
 {
+    [Space(5)]
     public float maxSpeed = 10; // max speed to walk
-    private bool isFlip = false; // check if character should flip your animations
-    private float xScale = 0; // value to use when flip the character 
 
+    private bool isPaused = false;
+    private bool isFlip = false; // check if character should flip your animations
+    private float xScale = 0; // value to use when flip the character
+                              
     private Rigidbody2D rb;
     private Animator anim;
+    private EquipItens itensClass;
     private Vector2 charDirection; // receives the directions to walk
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        itensClass = GetComponent<EquipItens>();
 
         xScale = transform.localScale.x;
     }
     private void Update()
-    {
-        // process the game controllers
-        InputProcess(); 
+    {        
+        if (!isPaused)
+        {
+            // process the game controllers
+            InputProcess();         
+        }       
     }
 
     private void FixedUpdate()
     {
         // move the character
-        Move(); 
+        Move();       
     }
 
     private void InputProcess()
     {
+        // receive the axis to move, this include joystick axis too
         float verticalAxis = Input.GetAxisRaw("Vertical");
         float horizontalAxis = Input.GetAxisRaw("Horizontal");
 
@@ -62,6 +71,9 @@ public class MainCharacter : MonoBehaviour
         if(xAxis > 0)
         {
             anim.SetBool("side", true);
+            anim.SetBool("front", false);
+            anim.SetBool("back", false);
+            itensClass.characterBody.ChangeBodySprite("Side");
 
             if (!isFlip)
             {
@@ -72,6 +84,9 @@ public class MainCharacter : MonoBehaviour
         else if (xAxis < 0)
         {
             anim.SetBool("side", true);
+            anim.SetBool("front", false);
+            anim.SetBool("back", false);
+            itensClass.characterBody.ChangeBodySprite("Side");
 
             if (!isFlip)
             {
@@ -90,17 +105,14 @@ public class MainCharacter : MonoBehaviour
             anim.SetBool("side", false);
             anim.SetBool("front", false);
             anim.SetBool("back", true);
+            itensClass.characterBody.ChangeBodySprite("Back");
         }
         else if (yAxis < 0)
         {
             anim.SetBool("side", false);
             anim.SetBool("front", true);
             anim.SetBool("back", false);
-        }
-        else
-        {
-            anim.SetBool("front", false);
-            anim.SetBool("back", false);
+            itensClass.characterBody.ChangeBodySprite("Front");
         }
     }
 
@@ -110,5 +122,16 @@ public class MainCharacter : MonoBehaviour
         flipScale.x = xValue;
         flipScale.y = transform.localScale.y;
         transform.localScale = flipScale;
+    }
+
+    public void PausedGame()
+    {
+        // when the boolean invert your value, the state of the game change too
+        isPaused = !isPaused;
+        itensClass.characterBody.ChangeBodySprite("Front");
+
+        anim.SetBool("side", false);
+        anim.SetBool("front", true);
+        anim.SetBool("back", false);
     }
 }

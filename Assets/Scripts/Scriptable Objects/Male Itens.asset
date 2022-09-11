@@ -1,0 +1,98 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45e2e14145ef31d419ff97e885883d07, type: 3}
+  m_Name: Male Itens
+  m_EditorClassIdentifier: 
+  hats:
+  - nameItem: Gentleman Hat
+    imgSpriteFRONT: {fileID: 21300000, guid: b32a035443218e54dbbf6932419bf27d, type: 3}
+    imgSpriteSIDE: {fileID: 21300000, guid: b32a035443218e54dbbf6932419bf27d, type: 3}
+    imgSpriteBACK: {fileID: 21300000, guid: b32a035443218e54dbbf6932419bf27d, type: 3}
+    value: 10
+  - nameItem: Golden Hat
+    imgSpriteFRONT: {fileID: 21300000, guid: 9eea50837fea8e8469402f827d3b639d, type: 3}
+    imgSpriteSIDE: {fileID: 21300000, guid: 9eea50837fea8e8469402f827d3b639d, type: 3}
+    imgSpriteBACK: {fileID: 21300000, guid: 9eea50837fea8e8469402f827d3b639d, type: 3}
+    value: 20
+  - nameItem: German Hat
+    imgSpriteFRONT: {fileID: 21300000, guid: 947f8f7fa96b17444a42a2b37e2de8cc, type: 3}
+    imgSpriteSIDE: {fileID: 21300000, guid: f55702aa7a0a28e48b70ef9baeae56a5, type: 3}
+    imgSpriteBACK: {fileID: 21300000, guid: 947f8f7fa96b17444a42a2b37e2de8cc, type: 3}
+    value: 30
+  - nameItem: Captain Hat
+    imgSpriteFRONT: {fileID: 21300000, guid: a552031c6a5a68f4b96fe434da3d6070, type: 3}
+    imgSpriteSIDE: {fileID: 21300000, guid: 4c3598a844d54394ca3e02e815ea5738, type: 3}
+    imgSpriteBACK: {fileID: 21300000, guid: 95520b34ebb85cb45847e06311d744ca, type: 3}
+    value: 40
+  body:
+  - nameItem: Gentleman Suit
+    imgSpriteFRONT: {fileID: 21300000, guid: 9ac770c0360c55548845764c5c499b77, type: 3}
+    imgSpriteSIDE: {fileID: 21300000, guid: 4996766e476e418449a32f5d2a50e17c, type: 3}
+    imgSpriteBACK: {fileID: 21300000, guid: 33c1ef8393acce844ae344f6a316320b, type: 3}
+    value: 12
+  - nameItem: Captain Suit
+    imgSpriteFRONT: {fileID: 21300000, guid: faed0d036512acf4ca0f99042a02dd54, type: 3}
+    imgSpriteSIDE: {fileID: 21300000, guid: 37024580985f11244a31635de2ba5fe6, type: 3}
+    imgSpriteBACK: {fileID: 21300000, guid: cc8312a085fa78a48958f4f42dc70783, type: 3}
+    value: 56
+  - nameItem: Traveller Suit
+    imgSpriteFRONT: {fileID: 21300000, guid: 6e1b19059886477488c4108c80a576ab, type: 3}
+    imgSpriteSIDE: {fileID: 21300000, guid: 4ece83634ee3b0a419074253ab30265a, type: 3}
+    imgSpriteBACK: {fileID: 21300000, guid: fded72a948f438b4b987de4af7fe2f3d, type: 3}
+    value: 78
+  - nameItem: Casual Suit
+    imgSpriteFRONT: {fileID: 21300000, guid: 27104acf239257e47a1a943e165dbb63, type: 3}
+    imgSpriteSIDE: {fileID: 21300000, guid: b48ef2b900e293f44af4b6d4e2346077, type: 3}
+    imgSpriteBACK: {fileID: 21300000, guid: 9b0911f61467bad44aa6a7788f003402, type: 3}
+    value: 44
+  legs:
+  - nameItem: Gentleman Pants
+    imgSpriteFRONT: {fileID: 21300000, guid: b41e70a7e64a224439d7ad3e22b76849, type: 3}
+    imgSpriteSIDE: {fileID: 21300000, guid: b41e70a7e64a224439d7ad3e22b76849, type: 3}
+    imgSpriteBACK: {fileID: 21300000, guid: b41e70a7e64a224439d7ad3e22b76849, type: 3}
+    value: 25
+  - nameItem: Captain Pants
+    imgSpriteFRONT: {fileID: 21300000, guid: 6666ed5dbb30cfd40b8c87af465de80a, type: 3}
+    imgSpriteSIDE: {fileID: 21300000, guid: 6666ed5dbb30cfd40b8c87af465de80a, type: 3}
+    imgSpriteBACK: {fileID: 21300000, guid: 6666ed5dbb30cfd40b8c87af465de80a, type: 3}
+    value: 36
+  - nameItem: Traveller Pants
+    imgSpriteFRONT: {fileID: 21300000, guid: cc4411ec94c2f4947b9e1a233172509c, type: 3}
+    imgSpriteSIDE: {fileID: 21300000, guid: cc4411ec94c2f4947b9e1a233172509c, type: 3}
+    imgSpriteBACK: {fileID: 21300000, guid: cc4411ec94c2f4947b9e1a233172509c, type: 3}
+    value: 45
+  - nameItem: Casual Pants
+    imgSpriteFRONT: {fileID: 21300000, guid: a145f6049498a6c459722ccc1f14b8a2, type: 3}
+    imgSpriteSIDE: {fileID: 21300000, guid: a145f6049498a6c459722ccc1f14b8a2, type: 3}
+    imgSpriteBACK: {fileID: 21300000, guid: a145f6049498a6c459722ccc1f14b8a2, type: 3}
+    value: 71
+  arms:
+  - nameItem: Gentleman Sleeve
+    imgSpriteFRONT: {fileID: 21300000, guid: c7778567930015940bc9026a3225fb1c, type: 3}
+    imgSpriteSIDE: {fileID: 21300000, guid: c7778567930015940bc9026a3225fb1c, type: 3}
+    imgSpriteBACK: {fileID: 21300000, guid: c7778567930015940bc9026a3225fb1c, type: 3}
+    value: 2
+  - nameItem: Captain Sleeve
+    imgSpriteFRONT: {fileID: 21300000, guid: 97b3759f6e220dd4c8761fa031aa7d4e, type: 3}
+    imgSpriteSIDE: {fileID: 21300000, guid: 97b3759f6e220dd4c8761fa031aa7d4e, type: 3}
+    imgSpriteBACK: {fileID: 21300000, guid: 97b3759f6e220dd4c8761fa031aa7d4e, type: 3}
+    value: 5
+  - nameItem: Traveller Sleeve
+    imgSpriteFRONT: {fileID: 21300000, guid: 85102589d4fbad64687d06440e6df1ce, type: 3}
+    imgSpriteSIDE: {fileID: 21300000, guid: 85102589d4fbad64687d06440e6df1ce, type: 3}
+    imgSpriteBACK: {fileID: 21300000, guid: 85102589d4fbad64687d06440e6df1ce, type: 3}
+    value: 4
+  - nameItem: Casual Sleeve
+    imgSpriteFRONT: {fileID: 21300000, guid: c521ea24afa62b949a0fc27bcd9a687a, type: 3}
+    imgSpriteSIDE: {fileID: 21300000, guid: c521ea24afa62b949a0fc27bcd9a687a, type: 3}
+    imgSpriteBACK: {fileID: 21300000, guid: c521ea24afa62b949a0fc27bcd9a687a, type: 3}
+    value: 7
