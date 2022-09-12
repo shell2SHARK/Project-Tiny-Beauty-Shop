@@ -28,6 +28,10 @@ public class EquipItens : MonoBehaviour
         [Header("Character Scriptable Object:")]
         public GameItens scriptableInfos;
 
+        [Space(15)]
+        [Header("Actual Money:")]
+        public float money = 100;
+
         public void SetHat(string itemName)
         {
             // for each item on scriptable object, check if the received item exists to equip

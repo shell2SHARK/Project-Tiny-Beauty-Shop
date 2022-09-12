@@ -5,6 +5,17 @@ using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
+    [System.Serializable]
+    public class MyActualItens
+    {
+        public string[] hatName;
+        public string[] shirtName;
+        public string[] armName;
+        public string[] legName;
+    }
+
+    public MyActualItens myItens;
+
     [Header("Place here the character's Equip Item script:")]
     public EquipItens itensCharacterScript;
     [Header("Place here the character's Scriptable Object:")]
@@ -18,103 +29,101 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
-        // draw the first slots of the item "hat" to the inventory
-        CallHatsToSlot();
+
     }
 
+    private void Update()
+    {
+
+    }
+
+    // each method is called by the navigation buttons of inventory
     public void CallHatsToSlot()
     {
-        // first - the function deletes the others itens slot
-        DeleteOldSlots();
-
-        // for each item we have on scriptable object, create the slots
-        for (int i = 0; i < gameItensData.hats.Length; i++)
-        {
-            GameObject slotIcon = Instantiate(slotItemIcon);
-            SetSlotValues slotScript = slotIcon.GetComponent<SetSlotValues>();
-            Button slotBTN = slotIcon.GetComponent<Button>();
-
-            // parent the prefab slot to the correct Canvas parent
-            slotIcon.transform.SetParent(slotParent.transform, false);
-
-            // add the equip item's script of the character to the slot
-            slotScript.equipScript = itensCharacterScript;
-
-            // give to the slot your id (image, item price and the item name)
-            slotScript.imgComponent.sprite = gameItensData.hats[i].imgSpriteFRONT;
-            slotScript.textComponent.text = "$" + gameItensData.hats[i].value.ToString();
-            slotScript.nameItem = gameItensData.hats[i].nameItem;
-
-            // assign a custom event to the slot button
-            // if the player click him, a specified function inside the slot script is called to set this item
-            slotBTN.onClick.AddListener(delegate { slotScript.SetHatToCharacter(); });
-        }
+        SetItemOnSlot(myItens.hatName, "hats");
     }
 
     public void CallShirtsToSlot()
     {
-        DeleteOldSlots();
-
-        for (int i = 0; i < gameItensData.body.Length; i++)
-        {
-            GameObject slotIcon = Instantiate(slotItemIcon);
-            SetSlotValues slotScript = slotIcon.GetComponent<SetSlotValues>();
-            Button slotBTN = slotIcon.GetComponent<Button>();
-
-            slotIcon.transform.SetParent(slotParent.transform, false);
-
-            slotScript.equipScript = itensCharacterScript;
-
-            slotScript.imgComponent.sprite = gameItensData.body[i].imgSpriteFRONT;
-            slotScript.textComponent.text = "$" + gameItensData.body[i].value.ToString();
-            slotScript.nameItem = gameItensData.body[i].nameItem;
-
-            slotBTN.onClick.AddListener(delegate { slotScript.SetShirtToCharacter(); });
-        }
+        SetItemOnSlot(myItens.shirtName, "body");
     }
 
     public void CallLegsToSlot()
     {
-        DeleteOldSlots();
-
-        for (int i = 0; i < gameItensData.legs.Length; i++)
-        {
-            GameObject slotIcon = Instantiate(slotItemIcon);
-            SetSlotValues slotScript = slotIcon.GetComponent<SetSlotValues>();
-            Button slotBTN = slotIcon.GetComponent<Button>();
-
-            slotIcon.transform.SetParent(slotParent.transform, false);
-
-            slotScript.equipScript = itensCharacterScript;
-
-            slotScript.imgComponent.sprite = gameItensData.legs[i].imgSpriteFRONT;
-            slotScript.textComponent.text = "$" + gameItensData.legs[i].value.ToString();
-            slotScript.nameItem = gameItensData.legs[i].nameItem;
-
-            slotBTN.onClick.AddListener(delegate { slotScript.SetLegToCharacter(); });
-        }
+        SetItemOnSlot(myItens.legName, "legs");
     }
 
     public void CallArmsToSlot()
     {
+        SetItemOnSlot(myItens.armName, "arms");
+    }
+
+    public void SetItemOnSlot(string[] inventItens, string ScriptableItens)
+    {
+        // first - the function deletes the others itens slot
         DeleteOldSlots();
 
-        for (int i = 0; i < gameItensData.arms.Length; i++)
+        // search the actual itens inside the Scriptable Object
+        GameItens.itemSpecs[] type = (GameItens.itemSpecs[])gameItensData.GetType().GetField(ScriptableItens).GetValue(gameItensData);
+
+        // create a temporary array with the scriptable itens found
+        string[] itemName = GetItemOnScriptable(type);
+
+        for (int i = 0; i < type.Length; i++)
         {
-            GameObject slotIcon = Instantiate(slotItemIcon);
-            SetSlotValues slotScript = slotIcon.GetComponent<SetSlotValues>();
-            Button slotBTN = slotIcon.GetComponent<Button>();
+            // compare if you have the same item inside on temporary array
+            int idxItem = System.Array.IndexOf(itemName,inventItens[i]);
 
-            slotIcon.transform.SetParent(slotParent.transform, false);
+            // if you have, let's add on the slot
+            if (idxItem > -1)
+            {
+                GameObject slotIcon = Instantiate(slotItemIcon);
+                SetSlotValues slotScript = slotIcon.GetComponent<SetSlotValues>();
+                Button slotBTN = slotIcon.GetComponent<Button>();
 
-            slotScript.equipScript = itensCharacterScript;
+                // parent the prefab slot to the correct Canvas parent
+                slotIcon.transform.SetParent(slotParent.transform, false);
 
-            slotScript.imgComponent.sprite = gameItensData.arms[i].imgSpriteFRONT;
-            slotScript.textComponent.text = "$" + gameItensData.arms[i].value.ToString();
-            slotScript.nameItem = gameItensData.arms[i].nameItem;
+                // add the equip item's script of the character to the slot
+                slotScript.equipScript = itensCharacterScript;
+                
+                // give to the slot your id (image, item price and the item name)
+                slotScript.imgComponent.sprite = type[idxItem].imgSpriteFRONT;
+                slotScript.textComponent.text = "$" + type[idxItem].value.ToString();
+                slotScript.nameItem = type[idxItem].nameItem;
 
-            slotBTN.onClick.AddListener(delegate { slotScript.SetArmToCharacter(); });
+                // assign a custom event to the slot button
+                // if the player click him, a specified function inside the slot script is called to set this item
+                switch (ScriptableItens)
+                {
+                    case "hats":
+                        slotBTN.onClick.AddListener(delegate { slotScript.SetHatToCharacter(); });
+                        break;
+                    case "body":
+                        slotBTN.onClick.AddListener(delegate { slotScript.SetShirtToCharacter(); });
+                        break;
+                    case "legs":
+                        slotBTN.onClick.AddListener(delegate { slotScript.SetLegToCharacter(); });
+                        break;
+                    case "arms":
+                        slotBTN.onClick.AddListener(delegate { slotScript.SetArmToCharacter(); });
+                        break;
+                }
+            }
         }
+    }
+
+    public string[] GetItemOnScriptable(GameItens.itemSpecs[] scriptable)
+    {
+        // create a temporary array with the item received on param based on Scriptable Object
+        string[] itensInSO = new string[scriptable.Length];
+
+        for (int i = 0; i < scriptable.Length; i++)
+        {
+            itensInSO[i] = scriptable[i].nameItem;
+        }
+
+        return itensInSO;
     }
 
     private void DeleteOldSlots()
