@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class ShopScript : MonoBehaviour
 {
@@ -16,37 +17,53 @@ public class ShopScript : MonoBehaviour
     [Space(5)]
     [Header("Inventory Script Character:")]
     public Inventory inventoryScript;
+    // here the index of each dialogue talk was inserted
+    // the controller objects visibility is controlled by him too
+    [Space(5)]
+    [Header("Index of all dialogues on dialogue UI:")]
+    public int idxOfBuyQuestion = 0;
+    public int idxOfSellQuestion = 0;
+    public int idxOfFinishBuyQuestion = 0;
+    public int idxOfFinishSellQuestion = 0;
+    public int idxOfDontHaveMoneyQuestion = 0;
+    // all the necessary UI itens to show info to the player
+    [Space(5)]
+    [Header("Confirm Button UI:")]
+    public DialogueSystem dialSystem;
+    public TMPro.TextMeshProUGUI textConfirm;
+    public Button yes;
+    [Space(5)]
     [Header("Buy/Sell state:")]
     public bool isBuying = true;
 
-    void Start()
+    // the inventory opening button receives the function BuyItem by default as event trigger
+    public void BuyItem()
     {
-        ShowHatItens();
+        isBuying = true;
+        ShowHatItens(); // first itens to show on the shop
     }
 
-    private void Update()
+    public void SellItem()
     {
-        if (Input.GetKeyDown("g"))
-        {
-           
-        }
+        isBuying = false;
+        ShowHatItens(); //first itens to show on the shop
     }
 
+    // each function here is connected inside a button on navigator shop buttons
     public void ShowHatItens()
     {
         if (isBuying)
         {
-            // if buy call the set function using the actual class item to setup the values
+            // if buy -> call the set function using the actual class item to setup the values
             SetItensToBuy(inventoryScript.myItens.hatName, "hats");
         }
         else
         {
-            // if not the sell function is call using the actual class item to setup the values
+            // if not -> the sell function is call using the actual class item to setup the values
             SetItensToSell(inventoryScript.myItens.hatName, "hats");
         }           
     }
 
-    // each function here is connected inside a button on navigator shop buttons
     public void ShowShirtItens()
     {       
         if (isBuying)
@@ -63,11 +80,11 @@ public class ShopScript : MonoBehaviour
     {
         if (isBuying)
         {
-            SetItensToBuy(inventoryScript.myItens.shirtName, "legs");
+            SetItensToBuy(inventoryScript.myItens.legName, "legs");
         }
         else
         {
-            SetItensToSell(inventoryScript.myItens.shirtName, "legs");
+            SetItensToSell(inventoryScript.myItens.legName, "legs");
         }
     }
 
@@ -75,16 +92,17 @@ public class ShopScript : MonoBehaviour
     {
         if (isBuying)
         {
-            SetItensToBuy(inventoryScript.myItens.shirtName, "arms");
+            SetItensToBuy(inventoryScript.myItens.armName, "arms");            
         }
         else
         {
-            SetItensToSell(inventoryScript.myItens.shirtName, "arms");
+            SetItensToSell(inventoryScript.myItens.armName, "arms");
         }
     }
+    //----
 
     public void SetItensToBuy(string[] itemToSort, string ScriptableItens)
-    {
+    {        
         // first - the function deletes the others itens slot
         DeleteOldSlots();
 
@@ -93,6 +111,8 @@ public class ShopScript : MonoBehaviour
 
         // create a temporary array with the itens the player have
         string[] itemName = SortItensToBuy(type, itemToSort);
+        print("here chama sort " + itemToSort[0] + itemToSort[1] + itemToSort[2] + itemToSort[3]);
+        print("here chama " + itemName[0] + itemName[1] + itemName[2] + itemName[3]);
 
         for (int i = 0; i < type.Length; i++)
         {
@@ -107,8 +127,9 @@ public class ShopScript : MonoBehaviour
                 slotIcon.transform.SetParent(slotParent.transform, false);
 
                 // give to the slot your id (image, item price and the item name)
+                float priceItem = type[i].value;
                 slotScript.imgComponent.sprite = type[i].imgSpriteFRONT;
-                slotScript.textComponent.text = "$" + type[i].value.ToString();
+                slotScript.textComponent.text = "$" + priceItem.ToString();
                 slotScript.nameItem = type[i].nameItem;
 
                 // assign a custom event to the slot button
@@ -116,16 +137,24 @@ public class ShopScript : MonoBehaviour
                 switch (ScriptableItens)
                 {
                     case "hats":
-                        slotBTN.onClick.AddListener(delegate { GetItem(slotScript.nameItem, itemName, "hats"); });                       
+                        slotBTN.onClick.AddListener(delegate { dialSystem.ChangeDialogue(idxOfBuyQuestion); });
+                        slotBTN.onClick.AddListener(delegate { dialSystem.ShowItemImmediately(); });
+                        slotBTN.onClick.AddListener(delegate { ConfirmBuyItem(slotScript.nameItem, itemName, "hats", priceItem); });                                                                       
                         break;
                     case "body":
-                        slotBTN.onClick.AddListener(delegate { GetItem(slotScript.nameItem, itemName, "body"); });
+                        slotBTN.onClick.AddListener(delegate { dialSystem.ChangeDialogue(idxOfBuyQuestion); });
+                        slotBTN.onClick.AddListener(delegate { dialSystem.ShowItemImmediately(); });
+                        slotBTN.onClick.AddListener(delegate { ConfirmBuyItem(slotScript.nameItem, itemName, "body", priceItem); });
                         break;
                     case "legs":
-                        slotBTN.onClick.AddListener(delegate { GetItem(slotScript.nameItem, itemName, "legs"); });
+                        slotBTN.onClick.AddListener(delegate { dialSystem.ChangeDialogue(idxOfBuyQuestion); });
+                        slotBTN.onClick.AddListener(delegate { dialSystem.ShowItemImmediately(); });
+                        slotBTN.onClick.AddListener(delegate { ConfirmBuyItem(slotScript.nameItem, itemName, "legs", priceItem); });
                         break;
                     case "arms":
-                        slotBTN.onClick.AddListener(delegate { GetItem(slotScript.nameItem, itemName, "arms"); });
+                        slotBTN.onClick.AddListener(delegate { dialSystem.ChangeDialogue(idxOfBuyQuestion); });
+                        slotBTN.onClick.AddListener(delegate { dialSystem.ShowItemImmediately(); });
+                        slotBTN.onClick.AddListener(delegate { ConfirmBuyItem(slotScript.nameItem, itemName, "arms", priceItem); });
                         break;
                 }               
             }
@@ -158,6 +187,7 @@ public class ShopScript : MonoBehaviour
                 slotIcon.transform.SetParent(slotParent.transform, false);
 
                 // give to the slot your id (image, item price and the item name)
+                float priceItem = type[i].value;
                 slotScript.imgComponent.sprite = type[idxItem].imgSpriteFRONT;
                 slotScript.textComponent.text = "$" + type[idxItem].value.ToString();
                 slotScript.nameItem = type[idxItem].nameItem;
@@ -167,16 +197,25 @@ public class ShopScript : MonoBehaviour
                 switch (ScriptableItens)
                 {
                     case "hats":
-                        slotBTN.onClick.AddListener(delegate { DropItem(slotScript.nameItem, itemName, "hats"); });
+                        slotBTN.onClick.AddListener(delegate { dialSystem.ChangeDialogue(idxOfSellQuestion); });
+                        slotBTN.onClick.AddListener(delegate { dialSystem.ShowItemImmediately(); });
+                        slotBTN.onClick.AddListener(delegate { ConfirmSellItem(slotScript.nameItem, itemName, "hats", priceItem); });
+                        //slotBTN.onClick.AddListener(delegate { DropItem(slotScript.nameItem, itemName, "hats", priceItem); });
                         break;
                     case "body":
-                        slotBTN.onClick.AddListener(delegate { DropItem(slotScript.nameItem, itemName, "body"); });
+                        slotBTN.onClick.AddListener(delegate { dialSystem.ChangeDialogue(idxOfSellQuestion); });
+                        slotBTN.onClick.AddListener(delegate { dialSystem.ShowItemImmediately(); });
+                        slotBTN.onClick.AddListener(delegate { ConfirmSellItem(slotScript.nameItem, itemName, "body", priceItem); });
                         break;
                     case "legs":
-                        slotBTN.onClick.AddListener(delegate { DropItem(slotScript.nameItem, itemName, "legs"); });
+                        slotBTN.onClick.AddListener(delegate { dialSystem.ChangeDialogue(idxOfSellQuestion); });
+                        slotBTN.onClick.AddListener(delegate { dialSystem.ShowItemImmediately(); });
+                        slotBTN.onClick.AddListener(delegate { ConfirmSellItem(slotScript.nameItem, itemName, "legs", priceItem); });
                         break;
                     case "arms":
-                        slotBTN.onClick.AddListener(delegate { DropItem(slotScript.nameItem, itemName, "arms"); });
+                        slotBTN.onClick.AddListener(delegate { dialSystem.ChangeDialogue(idxOfSellQuestion); });
+                        slotBTN.onClick.AddListener(delegate { dialSystem.ShowItemImmediately(); });
+                        slotBTN.onClick.AddListener(delegate { ConfirmSellItem(slotScript.nameItem, itemName, "arms", priceItem); });
                         break;
                 }
             }
@@ -221,23 +260,14 @@ public class ShopScript : MonoBehaviour
 
     private void DeleteOldSlots()
     {
+        // get the parent slot child and destroy him
         for (int i = 0; i < slotParent.transform.childCount; i++)
         {
             Destroy(slotParent.transform.GetChild(i).gameObject);
         }
     }
 
-    public void BuyItem()
-    {
-        isBuying = true;        
-    }
-
-    public void SellItem()
-    {
-        isBuying = false;
-    }
-
-    public void GetItem(string itemName,string[] allItens, string itemType)
+    public void GetItem(string itemName,string[] allItens, string itemType,float price)
     {
         // search and give the item from the inventory
         int idx = System.Array.IndexOf(allItens, itemName);
@@ -262,40 +292,93 @@ public class ShopScript : MonoBehaviour
             case "arms":
                 inventoryScript.myItens.armName[idx] = itemName;
                 inventoryScript.CallArmsToSlot();
-                ShowArmItens();
+                ShowArmItens();                
                 break;
-        }        
+        }
 
+        // money changes here
+        inventoryScript.itensCharacterScript.characterBody.money -= price;
     }
 
-    public void DropItem(string itemName, string[] allItens, string itemType)
+    public void DropItem(string itemName, string[] allItens, string itemType, float price)
     {
         // search and remove item from inventory
         int idx = System.Array.IndexOf(allItens, itemName);
 
         switch (itemType)
         {
+            // clear the item slot founded and update the character
             case "hats":
                 inventoryScript.myItens.hatName[idx] = "";
                 inventoryScript.CallHatsToSlot();
+                inventoryScript.itensCharacterScript.characterBody.SetHat("");
                 ShowHatItens();
                 break;
             case "body":
                 inventoryScript.myItens.shirtName[idx] = "";
                 inventoryScript.CallShirtsToSlot();
+                inventoryScript.itensCharacterScript.characterBody.SetShirt("");
                 ShowShirtItens();
                 break;
             case "legs":
                 inventoryScript.myItens.legName[idx] = "";
                 inventoryScript.CallLegsToSlot();
+                inventoryScript.itensCharacterScript.characterBody.SetLeg("");
                 ShowLegItens();
                 break;
             case "arms":
                 inventoryScript.myItens.armName[idx] = "";
                 inventoryScript.CallArmsToSlot();
+                inventoryScript.itensCharacterScript.characterBody.SetArm("");
                 ShowArmItens();
                 break;
         }
+
+        // money changes here
+        inventoryScript.itensCharacterScript.characterBody.money += price;
     }
 
+    public void ConfirmBuyItem(string itemName, string[] allItens, string itemType, float price)
+    {
+        float moneyChar = inventoryScript.itensCharacterScript.characterBody.money;               
+        textConfirm.text = "Confirm the buy\n\n " + itemName + "\n\nPrice - " + price;       
+
+        // remove the old listerners off the yes button to assign news to him
+        yes.onClick.RemoveAllListeners();
+   
+        if (moneyChar >= price)
+        {
+            // show the correct dialog after click the button
+            yes.onClick.AddListener(delegate { dialSystem.ChangeDialogue(idxOfFinishBuyQuestion); });
+
+            // call the method who give to the player the selected item
+            yes.onClick.AddListener(delegate { GetItem(itemName, allItens, itemType, price); });
+
+            // hide the selected elements when the button pressed
+            yes.onClick.AddListener(delegate { dialSystem.HideItemImmediately(); });
+        }
+        else
+        {
+            // change the shopkeeper dialog and hide selected objects
+            yes.onClick.AddListener(delegate { dialSystem.ChangeDialogue(idxOfDontHaveMoneyQuestion); });
+            yes.onClick.AddListener(delegate { dialSystem.HideItemImmediately(); });
+        }
+    }
+
+    public void ConfirmSellItem(string itemName, string[] allItens, string itemType, float price)
+    {
+        textConfirm.text = "Confirm the sell\n\n " + itemName + "\n\nPrice - " + price;
+
+        // // remove the old listerners off the yes button to assign news to him
+        yes.onClick.RemoveAllListeners();
+
+        // show the correct dialog after click the button
+        yes.onClick.AddListener(delegate { dialSystem.ChangeDialogue(idxOfFinishSellQuestion); });
+
+        // call the method who draw the player's item
+        yes.onClick.AddListener(delegate { DropItem(itemName, allItens, itemType, price); });
+
+        // hide the selected elements when the button pressed
+        yes.onClick.AddListener(delegate { dialSystem.HideItemImmediately(); });
+    }
 }

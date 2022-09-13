@@ -9,11 +9,22 @@ public class EquipItens : MonoBehaviour
    [System.Serializable]
     public class ChangeItens
     {
+        // the active sprites on the game
+        [Header("Character Actual Sprites:")]
         public ActualItens hatSpritesActual;
         public ActualItens bodySpritesActual;
         public ActualItens armSpritesActual;
         public ActualItens legSpritesActual;
 
+        // the default body sprites
+        [Space(15)]
+        [Header("Character Default Sprites:")]
+        public ActualItens hatSpritesDefault;
+        public ActualItens bodySpritesDefault;
+        public ActualItens armSpritesDefault;
+        public ActualItens legSpritesDefault;
+
+        // body spriterenderer
         [Space(15)]
         [Header("Character Pieces Body:")]
         public SpriteRenderer hatPiece;
@@ -43,6 +54,12 @@ public class EquipItens : MonoBehaviour
                     hatSpritesActual.imgFront = scriptableInfos.hats[i].imgSpriteFRONT;
                     hatSpritesActual.imgSide = scriptableInfos.hats[i].imgSpriteSIDE;
                 }
+                else if(itemName == "") // if don't find, make the character naked
+                {
+                    hatSpritesActual.imgBack = hatSpritesDefault.imgBack;
+                    hatSpritesActual.imgFront = hatSpritesDefault.imgFront;
+                    hatSpritesActual.imgSide = hatSpritesDefault.imgSide;
+                }
             }
 
             // change imediately the selected sprite inside your body
@@ -59,6 +76,12 @@ public class EquipItens : MonoBehaviour
                     bodySpritesActual.imgFront = scriptableInfos.body[i].imgSpriteFRONT;
                     bodySpritesActual.imgSide = scriptableInfos.body[i].imgSpriteSIDE;
                 }
+                else if (itemName == "")
+                {
+                    bodySpritesActual.imgBack = bodySpritesDefault.imgBack;
+                    bodySpritesActual.imgFront = bodySpritesDefault.imgFront;
+                    bodySpritesActual.imgSide = bodySpritesDefault.imgSide;
+                }
             }
 
             ChangeBodySprite("Front");
@@ -74,6 +97,12 @@ public class EquipItens : MonoBehaviour
                     armSpritesActual.imgFront = scriptableInfos.arms[i].imgSpriteFRONT;
                     armSpritesActual.imgSide = scriptableInfos.arms[i].imgSpriteSIDE;
                 }
+                else if (itemName == "")
+                {
+                    armSpritesActual.imgBack = armSpritesDefault.imgBack;
+                    armSpritesActual.imgFront = armSpritesDefault.imgFront;
+                    armSpritesActual.imgSide = armSpritesDefault.imgSide;
+                }
             }
 
             ChangeBodySprite("Front");
@@ -88,6 +117,12 @@ public class EquipItens : MonoBehaviour
                     legSpritesActual.imgBack = scriptableInfos.legs[i].imgSpriteBACK;
                     legSpritesActual.imgFront = scriptableInfos.legs[i].imgSpriteFRONT;
                     legSpritesActual.imgSide = scriptableInfos.legs[i].imgSpriteSIDE;
+                }
+                else if (itemName == "")
+                {
+                    legSpritesActual.imgBack = legSpritesDefault.imgBack;
+                    legSpritesActual.imgFront = legSpritesDefault.imgFront;
+                    legSpritesActual.imgSide = legSpritesDefault.imgSide;
                 }
             }
 

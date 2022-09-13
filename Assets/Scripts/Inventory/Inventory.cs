@@ -27,20 +27,10 @@ public class Inventory : MonoBehaviour
     [Header("Identify the slot parent gameobject:")]
     public GameObject slotParent;
 
-    private void Start()
-    {
-
-    }
-
-    private void Update()
-    {
-
-    }
-
     // each method is called by the navigation buttons of inventory
     public void CallHatsToSlot()
     {
-        SetItemOnSlot(myItens.hatName, "hats");
+        SetItemOnSlot(myItens.hatName, "hats");        
     }
 
     public void CallShirtsToSlot()
@@ -57,7 +47,7 @@ public class Inventory : MonoBehaviour
     {
         SetItemOnSlot(myItens.armName, "arms");
     }
-
+    //----
     public void SetItemOnSlot(string[] inventItens, string ScriptableItens)
     {
         // first - the function deletes the others itens slot
