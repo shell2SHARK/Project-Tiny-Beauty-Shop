@@ -9,10 +9,11 @@ To know more please acess the GDD here:
 
 https://docs.google.com/document/d/1hib8L3baEWNJPxlvhFm4QMnj96N9J8QQ5wGS7dMwPR4/edit#
 
-## Version - 1.2.0 
+## Version - 1.3.0 
 - Add the main character with animations and movement;
 - Add the inventory base system;
-- Add the buy/sell system.
+- Add the buy/sell system;
+- Add the NPC interaction.
 
 ## Specs
 Game Style: 2D Top Down
