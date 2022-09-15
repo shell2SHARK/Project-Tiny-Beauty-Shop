@@ -25,7 +25,7 @@ public class MainCharacter : MonoBehaviour
         xScale = transform.localScale.x;
     }
     private void Update()
-    {        
+    {
         if (!isPaused)
         {
             // process the game controllers

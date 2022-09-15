@@ -10,6 +10,7 @@ public class DialogueSystem : MonoBehaviour
     {
         // all stuff for the dialogue works
         public Sprite imgNPC;
+        public string nameChar;
         public string[] dialogue;
         public bool shouldShowSomething;
         public bool shouldHideSomething;
@@ -17,6 +18,7 @@ public class DialogueSystem : MonoBehaviour
         public GameObject[] ObjsToHide;
         public GameObject[] hideImmediately;
         public GameObject[] showImmediately;
+        public AudioClip talkAudio;        
     }
 
     // the all UI dialogue to show/hide
@@ -35,8 +37,9 @@ public class DialogueSystem : MonoBehaviour
 
     // text component
     [Space(5)]
-    [Header("All dialogues class:")]
+    [Header("All dialogues class and name text:")]
     public TMPro.TextMeshProUGUI dialText;
+    public TMPro.TextMeshProUGUI nameText;
 
     // npc image
     [Space(5)]
@@ -48,24 +51,38 @@ public class DialogueSystem : MonoBehaviour
     [Header("Dialogue class position:")]
     public int dialoguePos = 0;
 
-    //the actual text marker
+    // play the first audio interaction
+    [Space(5)]
+    [Header("First audio to play when interact with the character:")]
+    public AudioClip firstTalkAudio;
+
+    // the actual text marker
     private int actualDialogue = 0;
+
+    // get the audiosource component inside gameobject
+    private AudioSource audioSrc;
+
 
     private void Start()
     {
+        audioSrc = GetComponent<AudioSource>();
+
+        // start the first dialogue when active
+        nameText.text = dialogues[dialoguePos].nameChar;
         dialText.text = dialogues[dialoguePos].dialogue[actualDialogue];
+        NPCImg.sprite = dialogues[dialoguePos].imgNPC;           
     }
 
     // method assigned to the nextButton
     public void NextDialogue()
-    {       
+    { 
         if (actualDialogue < dialogues[dialoguePos].dialogue.Length - 1)
         {
             nextButton.gameObject.SetActive(true);
-            actualDialogue++;
-            dialText.text = dialogues[dialoguePos].dialogue[actualDialogue];
+            actualDialogue++;            
+            dialText.text = dialogues[dialoguePos].dialogue[actualDialogue];                       
         }
-        else
+        else 
         {
             // on the final dialog these itens will be revealed
             if (dialogues[dialoguePos].shouldShowSomething)
@@ -85,7 +102,7 @@ public class DialogueSystem : MonoBehaviour
             }
 
             actualDialogue = 0;
-            nextButton.gameObject.SetActive(false);
+            nextButton.gameObject.SetActive(false);            
         }
     }
 
@@ -93,7 +110,14 @@ public class DialogueSystem : MonoBehaviour
     {
         dialoguePos = dialPos;
         nextButton.gameObject.SetActive(true);
+
+        // set the new text, image and audio to play in the next talk
+        nameText.text = dialogues[dialoguePos].nameChar;
         dialText.text = dialogues[dialoguePos].dialogue[actualDialogue];
+        NPCImg.sprite = dialogues[dialoguePos].imgNPC;
+
+        PlayAudioDialogue();
+        HideItemImmediately();
     }
 
     public void ShowUIDialogue()
@@ -122,4 +146,18 @@ public class DialogueSystem : MonoBehaviour
         }
     }
 
+    public void PlayAudioDialogue()
+    {
+        if(dialogues[dialoguePos].talkAudio != null && actualDialogue == 0)
+        {
+            audioSrc.clip = dialogues[dialoguePos].talkAudio;
+            audioSrc.Play(0);
+        }        
+    }
+
+    public void PlayFirstAudioDialogue()
+    {
+        audioSrc.clip = firstTalkAudio;
+        audioSrc.Play(0);
+    }
 }
