@@ -9,8 +9,9 @@ To know more please acess the GDD here:
 
 https://docs.google.com/document/d/1hib8L3baEWNJPxlvhFm4QMnj96N9J8QQ5wGS7dMwPR4/edit#
 
-## Version - 1.3.1
-- Add the first design base on stage
+## Version - 1.4.0
+- Implement the shop design 
+- Implement the shop UI design and NPC
 
 ## Specs
 Game Style: 2D Top Down
