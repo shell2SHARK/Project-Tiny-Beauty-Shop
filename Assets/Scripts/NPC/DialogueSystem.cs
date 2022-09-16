@@ -22,8 +22,19 @@ public class DialogueSystem : MonoBehaviour
     }
 
     // the all UI dialogue to show/hide
-    [Header("UI Dialogue")]
+    [Header("UI Dialogue:")]
     public GameObject UIDialogue;
+    public GameObject TinyBoxDialogue;
+    public TMPro.TextMeshProUGUI textTinyBox;
+    public string NPCInteractionPhrase = "";
+
+    // sine movement for UI
+    [Space(5)]
+    [Header("Sine movement data:")]
+    public float frequency = 5;
+    public float magnitude = 5;
+    public float offset = 0;
+    private Vector3 startPos;
 
     // talk button
     [Space(5)]
@@ -65,12 +76,21 @@ public class DialogueSystem : MonoBehaviour
 
     private void Start()
     {
-        audioSrc = GetComponent<AudioSource>();
+        audioSrc = GetComponent<AudioSource>();      
 
         // start the first dialogue when active
         nameText.text = dialogues[dialoguePos].nameChar;
         dialText.text = dialogues[dialoguePos].dialogue[actualDialogue];
-        NPCImg.sprite = dialogues[dialoguePos].imgNPC;           
+        NPCImg.sprite = dialogues[dialoguePos].imgNPC;
+
+        // get initial position of tiny box to animate him
+        startPos = TinyBoxDialogue.transform.position;
+    }
+
+    private void Update()
+    {
+        // animate the tiny box
+        TinyTalkBoxAnimation();
     }
 
     // method assigned to the nextButton
@@ -159,5 +179,10 @@ public class DialogueSystem : MonoBehaviour
     {
         audioSrc.clip = firstTalkAudio;
         audioSrc.Play(0);
+    }
+
+    public void TinyTalkBoxAnimation()
+    {
+        TinyBoxDialogue.transform.position = startPos + transform.up * Mathf.Sin(Time.time * frequency + offset) * magnitude;
     }
 }

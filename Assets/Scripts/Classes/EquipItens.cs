@@ -42,6 +42,7 @@ public class EquipItens : MonoBehaviour
         [Space(15)]
         [Header("Actual Money:")]
         public float money = 100;
+        public TMPro.TextMeshProUGUI textMoney;
 
         public void SetHat(string itemName)
         {
@@ -160,6 +161,11 @@ public class EquipItens : MonoBehaviour
                     break;
             }
         }
+
+        public void UpdateMoneyText()
+        {            
+            textMoney.text = money.ToString();
+        }
     }
 
     // use this class to specify each sprite direction of the body character 
@@ -172,4 +178,9 @@ public class EquipItens : MonoBehaviour
     }
 
     public ChangeItens characterBody;
+
+    private void Start()
+    {
+        characterBody.UpdateMoneyText();
+    }
 }

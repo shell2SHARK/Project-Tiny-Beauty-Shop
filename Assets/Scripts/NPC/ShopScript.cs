@@ -32,6 +32,8 @@ public class ShopScript : MonoBehaviour
     public DialogueSystem dialSystem;
     public TMPro.TextMeshProUGUI textConfirm;
     public Button yes;
+    public Image shopBG;
+    public Image shopButtonBG;
     [Space(5)]
     [Header("Buy/Sell state:")]
     public bool isBuying = true;
@@ -40,12 +42,16 @@ public class ShopScript : MonoBehaviour
     public void BuyItem()
     {
         isBuying = true;
+        shopBG.color = Color.red;
+        shopButtonBG.color = Color.red;
         ShowHatItens(); // first itens to show on the shop
     }
 
     public void SellItem()
     {
         isBuying = false;
+        shopBG.color = Color.blue;
+        shopButtonBG.color = Color.blue;
         ShowHatItens(); //first itens to show on the shop
     }
 
@@ -298,6 +304,7 @@ public class ShopScript : MonoBehaviour
 
         // money changes here
         inventoryScript.itensCharacterScript.characterBody.money -= price;
+        inventoryScript.itensCharacterScript.characterBody.UpdateMoneyText();
     }
 
     public void DropItem(string itemName, string[] allItens, string itemType, float price)
@@ -336,12 +343,13 @@ public class ShopScript : MonoBehaviour
 
         // money changes here
         inventoryScript.itensCharacterScript.characterBody.money += price;
+        inventoryScript.itensCharacterScript.characterBody.UpdateMoneyText();
     }
 
     public void ConfirmBuyItem(string itemName, string[] allItens, string itemType, float price)
     {
         float moneyChar = inventoryScript.itensCharacterScript.characterBody.money;               
-        textConfirm.text = "Confirm the buy\n\n " + itemName + "\n\nPrice - " + price;       
+        textConfirm.text = "- Confirm the buy -\n" + itemName + "\nPrice - $" + price;       
 
         // remove the old listerners off the yes button to assign news to him
         yes.onClick.RemoveAllListeners();
@@ -356,6 +364,9 @@ public class ShopScript : MonoBehaviour
 
             // hide the selected elements when the button pressed
             yes.onClick.AddListener(delegate { dialSystem.HideItemImmediately(); });
+
+            // show the selected elements when the button pressed
+            yes.onClick.AddListener(delegate { dialSystem.ShowItemImmediately(); });
         }
         else
         {
@@ -367,7 +378,7 @@ public class ShopScript : MonoBehaviour
 
     public void ConfirmSellItem(string itemName, string[] allItens, string itemType, float price)
     {
-        textConfirm.text = "Confirm the sell\n\n " + itemName + "\n\nPrice - " + price;
+        textConfirm.text = "- Confirm the sell -\n" + itemName + "\nPrice - $" + price;
 
         // // remove the old listerners off the yes button to assign news to him
         yes.onClick.RemoveAllListeners();
@@ -380,5 +391,8 @@ public class ShopScript : MonoBehaviour
 
         // hide the selected elements when the button pressed
         yes.onClick.AddListener(delegate { dialSystem.HideItemImmediately(); });
+
+        // show the selected elements when the button pressed
+        yes.onClick.AddListener(delegate { dialSystem.ShowItemImmediately(); });
     }
 }
