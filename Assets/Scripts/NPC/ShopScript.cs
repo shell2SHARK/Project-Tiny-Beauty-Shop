@@ -8,15 +8,19 @@ public class ShopScript : MonoBehaviour
 {
     [Header("Place here the slot icon prefab:")]
     public GameObject slotItemIcon;
+
     [Space(5)]
     [Header("Identify the slot parent gameobject:")]
     public GameObject slotParent;
+
     [Space(5)]
     [Header("Place here the character's Scriptable Object:")]
     public GameItens gameItensData;
+
     [Space(5)]
     [Header("Inventory Script Character:")]
     public Inventory inventoryScript;
+
     // here the index of each dialogue talk was inserted
     // the controller objects visibility is controlled by him too
     [Space(5)]
@@ -26,6 +30,7 @@ public class ShopScript : MonoBehaviour
     public int idxOfFinishBuyQuestion = 0;
     public int idxOfFinishSellQuestion = 0;
     public int idxOfDontHaveMoneyQuestion = 0;
+
     // all the necessary UI itens to show info to the player
     [Space(5)]
     [Header("Confirm Button UI:")]
@@ -34,6 +39,7 @@ public class ShopScript : MonoBehaviour
     public Button yes;
     public Image shopBG;
     public Image shopButtonBG;
+
     [Space(5)]
     [Header("Buy/Sell state:")]
     public bool isBuying = true;
@@ -117,8 +123,6 @@ public class ShopScript : MonoBehaviour
 
         // create a temporary array with the itens the player have
         string[] itemName = SortItensToBuy(type, itemToSort);
-        print("here chama sort " + itemToSort[0] + itemToSort[1] + itemToSort[2] + itemToSort[3]);
-        print("here chama " + itemName[0] + itemName[1] + itemName[2] + itemName[3]);
 
         for (int i = 0; i < type.Length; i++)
         {

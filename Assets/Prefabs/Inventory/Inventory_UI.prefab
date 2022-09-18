@@ -445,6 +445,8 @@ MonoBehaviour:
   gameItensData: {fileID: 11400000, guid: 0c45ac465e5f4954e8c5d8f33068e760, type: 2}
   slotItemIcon: {fileID: 8118149717311187672, guid: 74a08a086caf2be41ba89fc5caed803c, type: 3}
   slotParent: {fileID: 2972300068229393549}
+  mainCam: {fileID: 0}
+  camOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &2972300068712750130
 GameObject:
   m_ObjectHideFlags: 0
@@ -1265,6 +1267,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 2972300068594470810}
+        m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
+        m_MethodName: ZoomOutPlayerCamera
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

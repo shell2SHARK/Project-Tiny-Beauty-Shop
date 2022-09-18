@@ -131,7 +131,7 @@ public class EquipItens : MonoBehaviour
         }
 
         public void ChangeBodySprite(string direction)
-        {
+        {          
             // compare what direction the player is facing to add the correct sprite to him
             switch (direction)
             {

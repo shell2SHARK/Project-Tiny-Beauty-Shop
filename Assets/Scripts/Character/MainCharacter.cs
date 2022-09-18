@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MainCharacter : MonoBehaviour
-{
+{    
     [Space(5)]
-    public float maxSpeed = 10; // max speed to walk
+    [Header("Character speed:")]
+    public float maxSpeed = 10;// max speed to walk
+    public bool isPaused = false; // disable only character moves
 
-    private bool isPaused = false;
     private bool isFlip = false; // check if character should flip your animations
     private float xScale = 0; // value to use when flip the character
                               
@@ -22,6 +23,7 @@ public class MainCharacter : MonoBehaviour
         anim = GetComponent<Animator>();
         itensClass = GetComponent<EquipItens>();
 
+        // actual scale on X axis to flip left or right
         xScale = transform.localScale.x;
     }
     private void Update()
@@ -124,14 +126,20 @@ public class MainCharacter : MonoBehaviour
         transform.localScale = flipScale;
     }
 
-    public void PausedGame()
+    public void PausedGame(bool status)
     {
-        // when the boolean invert your value, the state of the game change too
-        isPaused = !isPaused;
+        // when the boolean invert your value, the state of the character animation changes too
+        isPaused = status;       
+    }
+
+    public void ChangeToFrontSide()
+    {
+        // change to front animation when open the inventory
         itensClass.characterBody.ChangeBodySprite("Front");
 
         anim.SetBool("side", false);
         anim.SetBool("front", true);
         anim.SetBool("back", false);
     }
+
 }

@@ -18,14 +18,23 @@ public class Inventory : MonoBehaviour
 
     [Header("Place here the character's Equip Item script:")]
     public EquipItens itensCharacterScript;
+
+    [Space(5)]
     [Header("Place here the character's Scriptable Object:")]
     public GameItens gameItensData;
+
     [Space(5)]
     [Header("Place here the slot icon prefab:")]
     public GameObject slotItemIcon;
+
     [Space(5)]
     [Header("Identify the slot parent gameobject:")]
     public GameObject slotParent;
+
+    [Space(5)]
+    [Header("Choose the zoom camera script:")]
+    public CameraController mainCam;
+    public Vector3 camOffset;
 
     // each method is called by the navigation buttons of inventory
     public void CallHatsToSlot()
@@ -114,6 +123,18 @@ public class Inventory : MonoBehaviour
         }
 
         return itensInSO;
+    }
+
+    public void ZoomInPlayerCamera()
+    {
+        mainCam.offset = camOffset;
+        mainCam.targetNPC = itensCharacterScript.transform;
+        mainCam.startZoom = true;
+    }
+
+    public void ZoomOutPlayerCamera()
+    {
+        mainCam.startZoom = false;
     }
 
     private void DeleteOldSlots()

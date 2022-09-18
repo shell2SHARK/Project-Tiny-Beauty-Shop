@@ -461,12 +461,45 @@ AnimationClip:
     path: Body/Pivot_Arm_Right/Arm_Right/Hand_Right
     classID: 212
     script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 103
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_IsActive
+    path: Body/Head/Eyes_BG
+    classID: 1
+    script: {fileID: 0}
   m_PPtrCurves:
   - curve:
     - time: 0
       value: {fileID: 21300000, guid: d9104c7f06e7de249929afbf052bb3a5, type: 3}
     attribute: m_Sprite
     path: Body/Head
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+    - time: 0
+      value: {fileID: 21300000, guid: abcad2f80e901544d9f51e871bf7c18e, type: 3}
+    attribute: m_Sprite
+    path: Body/Head/Eyes_BG
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+    - time: 0
+      value: {fileID: 21300000, guid: 7575e927340a1fa48aec4baa0b39a1c8, type: 3}
+    attribute: m_Sprite
+    path: Body/Head/Eyes_BG/Eyes_Pupils
     classID: 212
     script: {fileID: 0}
   m_SampleRate: 60
@@ -540,7 +573,28 @@ AnimationClip:
       customType: 26
       isPPtrCurve: 0
     - serializedVersion: 2
+      path: 3087681983
+      attribute: 2086281974
+      script: {fileID: 0}
+      typeID: 1
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
       path: 694585260
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
+      isPPtrCurve: 1
+    - serializedVersion: 2
+      path: 3087681983
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
+      isPPtrCurve: 1
+    - serializedVersion: 2
+      path: 61174330
       attribute: 0
       script: {fileID: 0}
       typeID: 212
@@ -569,6 +623,8 @@ AnimationClip:
       isPPtrCurve: 0
     pptrCurveMapping:
     - {fileID: 21300000, guid: d9104c7f06e7de249929afbf052bb3a5, type: 3}
+    - {fileID: 21300000, guid: abcad2f80e901544d9f51e871bf7c18e, type: 3}
+    - {fileID: 21300000, guid: 7575e927340a1fa48aec4baa0b39a1c8, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -1852,6 +1908,25 @@ AnimationClip:
     attribute: m_LocalPosition.z
     path: Pivot_Leg_Right/Leg_Right
     classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 103
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_IsActive
+    path: Body/Head/Eyes_BG
+    classID: 1
     script: {fileID: 0}
   m_EulerEditorCurves:
   - curve:

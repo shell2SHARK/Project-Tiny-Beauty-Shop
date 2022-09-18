@@ -11,7 +11,6 @@ Material:
   m_Shader: {fileID: 4800000, guid: 62505ee61d20098489c6f861ed25cce1, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords:
-  - _OUTLINEENABLED_ON
   - _OUTLINEMODE_GRADIENT
   - _OUTLINEPOSITION_INSIDE_UNDER_SPRITE
   - _OUTLINESHAPE_CONTOUR
@@ -80,7 +79,7 @@ Material:
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
-    - _OutlineEnabled: 1
+    - _OutlineEnabled: 0
     - _OutlineMode: 1
     - _OutlinePosition: 0
     - _OutlineShape: 0
@@ -88,10 +87,10 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _Thickness: 25
+    - _Thickness: 8
     - _TileMode: 0
     - _UVSec: 0
-    - _Weight: 0.5
+    - _Weight: 0
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
