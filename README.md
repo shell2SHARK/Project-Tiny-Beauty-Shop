@@ -1,6 +1,6 @@
 # Project Tiny Beauty Shop
 
-![Cover Img](https://user-images.githubusercontent.com/37873121/190557970-91132bc4-9b93-4bd8-90d2-876011aef3ac.png)
+![Cover Img](https://user-images.githubusercontent.com/37873121/190887978-220b99b3-3e31-4827-8905-e18323ec6cda.png)
 
 Tiny Beauty Shop (or TBS) is an Top Down simulation game where the player must buy new clothes for his avatar in a store. 
 
@@ -12,9 +12,11 @@ To know more please acess the GDD here:
 
 https://docs.google.com/document/d/1hib8L3baEWNJPxlvhFm4QMnj96N9J8QQ5wGS7dMwPR4/edit#
 
-## Version - 1.5.0
-- Polish the interface
-- Added new design sprites to stage
+## Version - 1.6.0
+- Buy/Sell system working 100%
+- Character animations is now more fluid
+- Added NPCs to interact on the stage
+- Added collision on the entire stage
 
 ## Specs
 Game Style: 2D Top Down
